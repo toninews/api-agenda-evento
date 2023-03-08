@@ -4,10 +4,7 @@
 name: Python application
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+  - pull_request
 
 permissions:
   contents: read
@@ -29,6 +26,5 @@ jobs:
         pip install -r requirements-dev.txt
     - name: Lint with flake8
       run: flake8
-  #  - name: Test with pytest
-  #    run: |
-  #     pytest
+    - name: Test with pytest
+      run: pytest
