@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import include
 from agenda_evento.base.views import home
+from agenda_evento.api.urls import app_name
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('base', home)
+    path('base', home),
+    path('api/v1/', include('agenda_evento.api.urls', namespace=app_name))
 ]
