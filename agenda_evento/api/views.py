@@ -14,7 +14,7 @@ class EventoViews(GenericViewSet):
     def list(self, request):
         response_listagem_evento = [
             {
-                "titulo": "Call de alinhamento",
+                "titulo": "Call de Alinhamento",
                 "data": "30/04/2022",
                 "horario_inicio": "16:40",
                 "horario_fim": "17:08",
