@@ -1,5 +1,6 @@
 from django.test import Client
 
+
 def test_deve_criar_evento(client: Client):
     dados_requisicao = {
         'titulo': 'Call de Alinhamento',
