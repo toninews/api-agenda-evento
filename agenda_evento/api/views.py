@@ -1,6 +1,8 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 
+from agenda_evento.api.models import Evento
+
 
 class EventoViews(GenericViewSet):
 
@@ -12,15 +14,9 @@ class EventoViews(GenericViewSet):
         return Response(dados_response, 200)
 
     def list(self, request):
-        response_listagem_evento = [
-            {
-                "titulo": "Call de Alinhamento",
-                "data": "30/04/2022",
-                "horario_inicio": "16:40",
-                "horario_fim": "17:08",
-                "convidados": ["toninews57@gmail.com"],
-                "local": "https://meet.google.com/rbr-hhfr-mnt",
-                "descricao": "Call para alinhar módulo 19"
-            }
-        ]
-        return Response(response_listagem_evento, 200)
+        queryset = Evento.objects.all()
+
+        for evento in queryset:
+            print(evento)
+
+        return Response(queryset, 200)
