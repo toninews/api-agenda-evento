@@ -15,5 +15,3 @@ class EventoFactory(factory.django.DjangoModelFactory):
     convidados = ['junior.tst@tst.com', 'junior.tst2@tst.com']
     local = 'Google Meet'
     descricao = 'Call de alinhamento dos novos módulos do curso'
-
-
