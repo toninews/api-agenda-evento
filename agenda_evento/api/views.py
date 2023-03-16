@@ -31,5 +31,3 @@ class EventoViews(GenericViewSet):
         evento = get_object_or_404(self.queryset, pk=pk)
         serializer = self.get_serializer(evento)
         return Response(serializer.data)
-
-
