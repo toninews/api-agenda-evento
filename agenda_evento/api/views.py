@@ -1,6 +1,7 @@
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.generics import get_object_or_404
 
 from agenda_evento.api.models import Evento
 from agenda_evento.api.serializers import EventoSerializer
@@ -9,6 +10,7 @@ from agenda_evento.api.serializers import EventoSerializer
 class EventoViews(GenericViewSet):
 
     serializer_class = EventoSerializer
+    queryset = Evento.objects.all()
 
     def create(self, request):
         serializer = self.get_serializer(data=request.data)
@@ -22,6 +24,12 @@ class EventoViews(GenericViewSet):
         return Response(dados_response, status.HTTP_201_CREATED)
 
     def list(self, request):
-        queryset = Evento.objects.all()
-        serializer = self.get_serializer(queryset, many=True)
+        serializer = self.get_serializer(self.queryset, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
+
+    def retrieve(self, request, pk):
+        evento = get_object_or_404(self.queryset, pk=pk)
+        serializer = self.get_serializer(evento)
+        return Response(serializer.data)
+
+
