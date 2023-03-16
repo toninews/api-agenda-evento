@@ -31,3 +31,10 @@ class EventoViews(GenericViewSet):
         evento = get_object_or_404(self.queryset, pk=pk)
         serializer = self.get_serializer(evento)
         return Response(serializer.data)
+
+    def update(self, request, pk):
+        evento = get_object_or_404(self.queryset, pk=pk)
+        serializer = self.get_serializer(evento, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
