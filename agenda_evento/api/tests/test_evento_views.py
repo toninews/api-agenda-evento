@@ -65,3 +65,30 @@ def test_nao_deve_criar_evento_com_horas_invalidas(client: Client, corpo_requisi
                                                'hh:mm[:ss[.uuuuuu]].']
     assert response.data['horario_fim'] == ['Time has wrong format. Use one of these formats instead: '
                                             'hh:mm[:ss[.uuuuuu]].']
+
+
+def test_deve_listar_evento_por_id(client: Client, corpo_requisicao):
+    corpo_requisicao['titulo'] = 'Teste Evento por Id'
+
+    response_post = client.post(PATH, data=corpo_requisicao)
+    evento_id = response_post.data['evento_id']
+
+    response = client.get(f'{PATH}{evento_id}/')
+
+    assert response.status_code == status.HTTP_200_OK
+
+    assert response.data['id'] == evento_id
+    assert response.data['titulo'] == 'Teste Evento por Id'
+    assert response.data['data'] == '2021-12-09'
+    assert response.data['horario_inicio'] == '13:00:00'
+    assert response.data['horario_fim'] == '14:00:00'
+    assert response.data['convidados'] == ['toninews57@gmail.com']
+    assert response.data['local'] == 'https://meet.google.com/rbr-hhfr-mnt'
+    assert response.data['descricao'] == 'Call para alinhar próximos módulos do curso'
+
+
+def test_nao_deve_listar_evento_nao_econtrado(client: Client):
+    response = client.get(f'{PATH}1000/')
+
+    assert response.status_code == status.HTTP_404_NOT_FOUND
+    assert response.data == {'detail': 'Not found.'}
