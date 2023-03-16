@@ -40,5 +40,5 @@ jobs:
     - name: Test with pytest
       env:
         POSTGRES_PASSWORD: postgres
-        DATABASE_URL: "postgres://postgres@localhost:5432/test_database"
+        DATABASE_URL: postgres://postgres@localhost:5432/test_database
       run: pytest
