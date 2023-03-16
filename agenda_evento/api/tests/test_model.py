@@ -1,14 +1,10 @@
 import pytest
 
-from agenda_evento.api.factories import EventoFactory
-
 from agenda_evento.api.models import Evento
 
 
 @pytest.mark.django_db
-def test_deve_criar_evento_na_base():
-    evento_factory = EventoFactory()
-
+def test_deve_criar_evento_na_base(evento_factory):
     assert evento_factory.titulo == 'Call para Alinhar'
     assert evento_factory.data == '2022-05-10'
     assert evento_factory.horario_inicio == '13:00:00'
