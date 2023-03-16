@@ -14,6 +14,17 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:11.5
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
@@ -27,4 +38,7 @@ jobs:
     - name: Lint with flake8
       run: flake8
     - name: Test with pytest
+      env:
+        POSTGRES_PASSWORD: postgres
+        DATABASE_URL: postgres://postgres@localhost:5432/test_database
       run: pytest
