@@ -16,8 +16,8 @@ class EventoViews(GenericViewSet):
         serializer.save()
 
         dados_response = {
-            'evento_id': serializer.data['id'],
-            'mensagem': f'Evento {serializer.data["titulo"]} criando com sucesso.'
+            "evento_id": serializer.data['id'],
+            'mensagem': f'Evento {serializer.data["titulo"]} criado com sucesso.'
         }
         return Response(dados_response, status.HTTP_201_CREATED)
 

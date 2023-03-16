@@ -21,7 +21,6 @@ def test_deve_serializar_evento(evento_factory):
     assert serializer.data['descricao'] == 'Call de alinhamento dos novos módulos do curso'
 
 
-
 def test_deve_desserializar_evento():
     evento = {
         'titulo': 'Call para Alinhar 99',
@@ -48,7 +47,3 @@ def test_deve_desserializar_evento():
     assert evento_desserializado.convidados == ['junior.tst@tst.com', 'junior.tst2@tst.com']
     assert evento_desserializado.local == 'Google Meet'
     assert evento_desserializado.descricao == 'Call de alinhamento dos novos módulos do curso'
-
-
-
-
