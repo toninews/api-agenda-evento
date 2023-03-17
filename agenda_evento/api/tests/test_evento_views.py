@@ -92,3 +92,47 @@ def test_nao_deve_listar_evento_nao_econtrado(client: Client):
 
     assert response.status_code == status.HTTP_404_NOT_FOUND
     assert response.data == {'detail': 'Not found.'}
+
+
+def test_deve_editar_evento(client: Client, corpo_requisicao):
+    response_post = client.post(PATH, data=corpo_requisicao)
+    evento_id = response_post.data['evento_id']
+
+    dados_requisicao_put = {
+        'titulo': 'Call de Alinhamento - Editado',
+        'data': '2021-12-10',
+        'horario_inicio': '15:00',
+        'horario_fim': '17:00',
+        'convidados': ['toninews100@gmail.com'],
+        'local': 'https://meet.google.com/rbr-hhfr-mnt-editado',
+        'descricao': 'Call para alinhar próximos módulos do curso - editado'
+    }
+    response = client.put(f'{PATH}{evento_id}/', data=dados_requisicao_put, content_type='application/json')
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data['titulo'] == 'Call de Alinhamento - Editado'
+    assert response.data['data'] == '2021-12-10'
+    assert response.data['horario_inicio'] == '15:00:00'
+    assert response.data['horario_fim'] == '17:00:00'
+    assert response.data['convidados'] == ['toninews100@gmail.com']
+    assert response.data['local'] == 'https://meet.google.com/rbr-hhfr-mnt-editado'
+    assert response.data['descricao'] == 'Call para alinhar próximos módulos do curso - editado'
+
+
+def test_deve_editar_um_campo_do_evento(client: Client, corpo_requisicao):
+    response_post = client.post(PATH, data=corpo_requisicao)
+    evento_id = response_post.data['evento_id']
+
+    dados_requisicao_put = {
+        'titulo': 'Call de Alinhamento - Editado',
+    }
+    response = client.put(f'{PATH}{evento_id}/', data=dados_requisicao_put, content_type='application/json')
+
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data['titulo'] == 'Call de Alinhamento - Editado'
+    assert response.data['data'] == '2021-12-09'
+    assert response.data['horario_inicio'] == '13:00:00'
+    assert response.data['horario_fim'] == '14:00:00'
+    assert response.data['convidados'] == ['toninews57@gmail.com']
+    assert response.data['local'] == 'https://meet.google.com/rbr-hhfr-mnt'
+    assert response.data['descricao'] == 'Call para alinhar próximos módulos do curso'
