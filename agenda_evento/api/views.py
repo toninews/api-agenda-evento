@@ -44,6 +44,6 @@ class EventoViews(GenericViewSet):
         evento.delete()
         return Response(
             {
-                'id':pk, 'mensagem': 'Evento removido com sucesso.'
+                'id': pk, 'mensagem': 'Evento removido com sucesso.'
             }
         )
