@@ -136,3 +136,17 @@ def test_deve_editar_um_campo_do_evento(client: Client, corpo_requisicao):
     assert response.data['convidados'] == ['toninews57@gmail.com']
     assert response.data['local'] == 'https://meet.google.com/rbr-hhfr-mnt'
     assert response.data['descricao'] == 'Call para alinhar próximos módulos do curso'
+
+
+def test_deve_deletar_evento(client: Client, corpo_requisicao):
+    response_post = client.post(PATH, data=corpo_requisicao)
+    evento_id = response_post.data['evento_id']
+
+    response_delete = client.delete(f'{PATH}{evento_id}/')
+
+    assert response_delete.status_code == status.HTTP_200_OK
+    assert response_delete.data['id'] == str(evento_id)
+    assert response_delete.data['mensagem'] == 'Evento removido com sucesso.'
+
+    response_get = client.get(f'{PATH}{evento_id}/')
+    assert response_get.status_code == status.HTTP_404_NOT_FOUND
