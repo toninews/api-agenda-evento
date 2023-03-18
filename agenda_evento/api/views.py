@@ -38,3 +38,12 @@ class EventoViews(GenericViewSet):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
+
+    def destroy(self, request, pk):
+        evento = get_object_or_404(self.queryset, pk=pk)
+        evento.delete()
+        return Response(
+            {
+                'id': pk, 'mensagem': 'Evento removido com sucesso.'
+            }
+        )
