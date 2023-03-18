@@ -138,7 +138,7 @@ def test_deve_editar_um_campo_do_evento(client: Client, corpo_requisicao):
     assert response.data['descricao'] == 'Call para alinhar próximos módulos do curso'
 
 
-def test_deve_deletar_evento(client: Client,corpo_requisicao):
+def test_deve_deletar_evento(client: Client, corpo_requisicao):
     response_post = client.post(PATH, data=corpo_requisicao)
     evento_id = response_post.data['evento_id']
 
