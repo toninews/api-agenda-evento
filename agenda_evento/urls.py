@@ -18,9 +18,14 @@ from django.urls import path
 from django.conf.urls import include
 from agenda_evento.base.views import home
 from agenda_evento.api.urls import app_name
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+
+schema_view = get_schema_view(openapi.Info('Api de Agenda de Eventos', 'v1'), public=True)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('base', home),
-    path('api/v1/', include('agenda_evento.api.urls', namespace=app_name))
+    path('api/v1/', include('agenda_evento.api.urls', namespace=app_name)),
+    path('swagger/', schema_view.with_ui(), name='schema-swagger-ui'),
 ]
