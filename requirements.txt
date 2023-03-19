@@ -4,3 +4,4 @@ drf-nested-routers==0.93.4
 dj-database-url==1.2.0
 psycopg2-binary==2.9.5
 python-decouple==3.8
+drf-yasg==1.21.5
