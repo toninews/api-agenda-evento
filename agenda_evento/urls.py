@@ -24,6 +24,7 @@ from drf_yasg.views import get_schema_view
 schema_view = get_schema_view(openapi.Info('Api de Agenda de Eventos', 'v1'), public=True)
 
 urlpatterns = [
+    path('', home),
     path('admin/', admin.site.urls),
     path('base', home),
     path('api/v1/', include('agenda_evento.api.urls', namespace=app_name)),

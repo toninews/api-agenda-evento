@@ -1,14 +1,13 @@
-version: "3.3"
 services:
   database:
     container_name: agenda_evento
-    image: postgres
+    image: postgres:15
     restart: always
     volumes:
       - ./.pgdata:/var/lib/postgresql/data
     environment:
       - LC_ALL=C.UTF-8
-      - POSTGRES_USER=toninenews
-      - POSTGRES_PASSWORD=passtoninenews
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - 5439:5432
